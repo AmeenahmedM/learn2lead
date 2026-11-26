@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Academic Analytics — Learn2Lead</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatSlow {
+      0%, 100% {
+        transform: translateY(0px) scale(1);
+      }
+      50% {
+        transform: translateY(-14px) scale(1.04);
+      }
+    }
+
+    .animate-fade-up {
+      animation: fadeSlideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .animate-float-slow {
+      animation: floatSlow 9s ease-in-out infinite;
+    }
+
+    .animate-float-delayed {
+      animation: floatSlow 11s ease-in-out 2.5s infinite;
+    }
+
+    .delay-100 { animation-delay: 80ms; }
+    .delay-200 { animation-delay: 160ms; }
+    .delay-300 { animation-delay: 240ms; }
+    .delay-400 { animation-delay: 320ms; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-sky-50/40 to-indigo-50/50 text-slate-800 min-h-screen relative overflow-x-hidden">
+  <!-- Subtle Ambient Background Orbs -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="animate-float-slow absolute -top-24 -left-24 h-80 w-80 rounded-full bg-sky-300/20 blur-3xl"></div>
+    <div class="animate-float-delayed absolute top-1/3 -right-24 h-96 w-96 rounded-full bg-indigo-300/20 blur-3xl"></div>
+    <div class="animate-float-slow absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-emerald-300/15 blur-3xl"></div>
+  </div>
+
+  <!-- Glassmorphic Sticky Navigation Bar -->
+  <nav class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md text-white px-6 py-3 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 shadow-lg">
+    <div class="flex items-center gap-3 group">
+      <img src="/static/assets/logo.jpg"
+           onerror="this.onerror=null; this.src='https://placehold.co/40x40/0284c7/ffffff?text=L2L';"
+           alt="Learn2Lead"
+           class="h-10 w-10 rounded-xl object-cover bg-white ring-2 ring-sky-400/40 transition-transform duration-300 group-hover:scale-105" />
+      <span class="font-extrabold text-xl tracking-tight">Learn<span class="text-sky-400">2</span>Lead</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1.5 text-sm font-semibold">
+      <a href="/dashboard" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Home</a>
+      <a href="/static/academics/planner.html" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Study Planner</a>
+      <a href="/static/academics/quizzes.html" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Subject Quizzes</a>
+      <a href="/static/academics/analytics.html" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/25">Analytics</a>
+      <button onclick="logout()" class="ml-2 px-3.5 py-1.5 text-xs font-bold bg-rose-600 hover:bg-rose-500 active:scale-95 rounded-xl transition-all duration-200 shadow-sm cursor-pointer">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <!-- Hero Header -->
+    <div class="animate-fade-up flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase bg-indigo-100 text-indigo-800 border border-indigo-200/80 mb-2">
+          <span class="h-2 w-2 rounded-full bg-indigo-500 animate-pulse"></span>
+          Live Performance Insights
+        </span>
+        <h1 class="text-3xl font-black tracking-tight text-slate-900">
+          Academic <span class="bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">Performance Analytics</span>
+        </h1>
+        <p class="text-sm text-slate-600 mt-1">Track subject mastery, score progression, study hours, and personalized revision recommendations.</p>
+      </div>
+      <a href="/static/academics/quizzes.html"
+         class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-sky-600/25 transition-all active:scale-95">
+        + Take New AI Quiz
+      </a>
+    </div>
+
+    <!-- 4 Animated KPI Cards -->
+    <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="animate-fade-up delay-100 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-5 shadow-lg shadow-slate-200/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-sky-500 to-indigo-500"></div>
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Overall Avg Score</p>
+        <p id="kpi-avg" class="text-3xl font-black text-slate-900 mt-2">0%</p>
+        <p class="text-[11px] text-slate-400 mt-1">Across all academic quizzes</p>
+      </div>
+
+      <div class="animate-fade-up delay-200 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-5 shadow-lg shadow-slate-200/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-indigo-500 to-violet-500"></div>
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Total Quiz Attempts</p>
+        <p id="kpi-attempts" class="text-3xl font-black text-slate-900 mt-2">0</p>
+        <p class="text-[11px] text-slate-400 mt-1">AI &amp; Notes-based tests</p>
+      </div>
+
+      <div class="animate-fade-up delay-300 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-5 shadow-lg shadow-slate-200/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Study Hours Completed</p>
+        <p id="kpi-hours" class="text-3xl font-black text-slate-900 mt-2">0 / 0 hrs</p>
+        <p class="text-[11px] text-slate-400 mt-1">From your Study Planner</p>
+      </div>
+
+      <div class="animate-fade-up delay-400 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-5 shadow-lg shadow-slate-200/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Latest Score Change</p>
+        <p id="kpi-delta" class="text-3xl font-black text-slate-400 mt-2">--</p>
+        <p class="text-[11px] text-slate-400 mt-1">Compared to previous quiz</p>
+      </div>
+    </section>
+
+    <!-- Charts Grid -->
+    <section class="grid lg:grid-cols-12 gap-6">
+      <div class="lg:col-span-6 animate-fade-up delay-200 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-6 shadow-xl shadow-slate-200/60 hover:shadow-2xl transition-shadow duration-300">
+        <div class="mb-4">
+          <h2 class="text-base font-extrabold text-slate-900">Subject-Wise Average Score</h2>
+          <p class="text-xs text-slate-500">Compare your accuracy across each subject</p>
+        </div>
+        <canvas id="subjectChart" height="190"></canvas>
+      </div>
+
+      <div class="lg:col-span-6 animate-fade-up delay-300 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-6 shadow-xl shadow-slate-200/60 hover:shadow-2xl transition-shadow duration-300">
+        <div class="mb-4">
+          <h2 class="text-base font-extrabold text-slate-900">Score Progress Timeline</h2>
+          <p class="text-xs text-slate-500">Your quiz trend over recent attempts</p>
+        </div>
+        <canvas id="timelineChart" height="190"></canvas>
+      </div>
+    </section>
+
+    <!-- Study Goal Doughnut + Strengths / Suggestions -->
+    <section class="grid lg:grid-cols-12 gap-6 items-start">
+      <div class="lg:col-span-4 animate-fade-up delay-200 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-6 shadow-xl shadow-slate-200/60">
+        <div class="mb-4">
+          <h2 class="text-base font-extrabold text-slate-900">Study Goal Breakdown</h2>
+          <p class="text-xs text-slate-500">Completed vs pending &amp; missed tasks</p>
+        </div>
+        <div class="max-w-[240px] mx-auto">
+          <canvas id="goalChart"></canvas>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 animate-fade-up delay-300 space-y-5">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-gradient-to-br from-emerald-50 to-teal-50/70 rounded-3xl border border-emerald-200/80 p-5 shadow-md">
+            <span class="inline-block text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900">Strengths</span>
+            <h3 class="text-sm font-extrabold text-emerald-950 mt-2">Strong Subjects (&ge; 75%)</h3>
+            <p id="strong-list" class="text-sm font-semibold text-emerald-800 mt-1">Loading...</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-rose-50 to-orange-50/70 rounded-3xl border border-rose-200/80 p-5 shadow-md">
+            <span class="inline-block text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-rose-200/80 text-rose-900">Focus Area</span>
+            <h3 class="text-sm font-extrabold text-rose-950 mt-2">Needs Revision (&lt; 65%)</h3>
+            <p id="weak-list" class="text-sm font-semibold text-rose-800 mt-1">Loading...</p>
+          </div>
+        </div>
+
+        <div class="bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-6 shadow-xl shadow-slate-200/60">
+          <h2 class="text-base font-extrabold text-slate-900 mb-3">Personalized Action Plan</h2>
+          <ul id="suggestions-list" class="space-y-2.5 text-sm text-slate-700"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/academics/academics.js?v=4"></script>
+  <script>initAnalyticsPage();</script>
+</body>
+</html>

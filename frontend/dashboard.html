@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Dashboard — Learn2Lead</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatSlow {
+      0%, 100% {
+        transform: translateY(0px) scale(1);
+      }
+      50% {
+        transform: translateY(-14px) scale(1.04);
+      }
+    }
+
+    @keyframes shimmerSweep {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .animate-fade-up {
+      animation: fadeSlideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .animate-float-slow {
+      animation: floatSlow 9s ease-in-out infinite;
+    }
+
+    .animate-float-delayed {
+      animation: floatSlow 11s ease-in-out 2.5s infinite;
+    }
+
+    .delay-100 { animation-delay: 80ms; }
+    .delay-200 { animation-delay: 160ms; }
+    .delay-300 { animation-delay: 240ms; }
+    .delay-400 { animation-delay: 320ms; }
+
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+      transform: translateX(-100%);
+    }
+    .btn-shimmer:hover::after {
+      animation: shimmerSweep 0.75s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-sky-50/40 to-indigo-50/50 text-slate-800 min-h-screen relative overflow-x-hidden">
+  <!-- Subtle Ambient Background Orbs -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="animate-float-slow absolute -top-24 -left-24 h-80 w-80 rounded-full bg-sky-300/20 blur-3xl"></div>
+    <div class="animate-float-delayed absolute top-1/3 -right-24 h-96 w-96 rounded-full bg-indigo-300/20 blur-3xl"></div>
+    <div class="animate-float-slow absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-emerald-300/15 blur-3xl"></div>
+  </div>
+
+  <!-- Glassmorphic Sticky Navigation Bar -->
+  <nav class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md text-white px-3 py-3 gap-3 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 shadow-lg">
+    <div class="flex items-center gap-3 group">
+      <img src="/static/assets/logo.jpg"
+           onerror="this.onerror=null; this.src='https://placehold.co/40x40/0284c7/ffffff?text=L2L';"
+           alt="Learn2Lead"
+           class="h-10 w-10 rounded-xl object-cover bg-white ring-2 ring-sky-400/40 transition-transform duration-300 group-hover:scale-105" />
+      <span class="font-extrabold text-xl tracking-tight">Learn<span class="text-sky-400">2</span>Lead</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1.5 text-sm font-semibold">
+      <a href="/dashboard" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/25">Home</a>
+      <a href="/static/academics/planner.html" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Study Planner</a>
+      <a href="/static/academics/quizzes.html" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Subject Quizzes</a>
+      <a href="/static/academics/analytics.html" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Analytics</a>
+      <button onclick="logout()" class="ml-2 px-3.5 py-1.5 text-xs font-bold bg-rose-600 hover:bg-rose-500 active:scale-95 rounded-xl transition-all duration-200 shadow-sm cursor-pointer">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <!-- Welcome Hero Banner -->
+    <section class="animate-fade-up relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-sky-950 to-indigo-950 text-white p-7 sm:p-9 shadow-2xl shadow-slate-900/20 border border-white/10">
+      <div class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-sky-500/20 blur-3xl"></div>
+      <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="space-y-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase bg-white/10 text-sky-300 border border-white/15">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Student Workspace
+          </span>
+          <h1 class="text-3xl sm:text-4xl font-black tracking-tight">
+            Welcome back, <span id="user-name" class="bg-gradient-to-r from-sky-400 to-emerald-400 bg-clip-text text-transparent">Student</span>!
+          </h1>
+          <p class="text-sm text-slate-300 max-w-xl">
+            Stay consistent with your study schedule, challenge yourself with questions quizzes, and track your academic growth in real time.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="/static/academics/quizzes.html"
+             class="btn-shimmer px-5 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white text-sm font-bold shadow-lg shadow-sky-500/30 transition-all active:scale-95">
+            Start AI Quiz &rarr;
+          </a>
+          <a href="/static/academics/planner.html"
+             class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-sm font-bold border border-white/15 transition-all active:scale-95">
+            Open Planner
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Academic Snapshot KPIs -->
+    <section class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="animate-fade-up delay-100 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-5 shadow-lg shadow-slate-200/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-sky-500 to-indigo-500"></div>
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Average Quiz Score</p>
+        <p id="dash-avg" class="text-3xl font-black text-slate-900 mt-2">--%</p>
+        <p class="text-[11px] text-slate-400 mt-1">Across academic quizzes</p>
+      </div>
+
+      <div class="animate-fade-up delay-200 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-5 shadow-lg shadow-slate-200/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-indigo-500 to-violet-500"></div>
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Quizzes Attempted</p>
+        <p id="dash-attempts" class="text-3xl font-black text-slate-900 mt-2">0</p>
+        <p class="text-[11px] text-slate-400 mt-1">AI &amp; Notes assessments</p>
+      </div>
+
+      <div class="animate-fade-up delay-300 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-5 shadow-lg shadow-slate-200/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Study Hours Done</p>
+        <p id="dash-hours" class="text-3xl font-black text-slate-900 mt-2">0 hrs</p>
+        <p class="text-[11px] text-slate-400 mt-1">Completed study blocks</p>
+      </div>
+
+      <div class="animate-fade-up delay-400 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-5 shadow-lg shadow-slate-200/50 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Tasks Completed</p>
+        <p id="dash-tasks" class="text-3xl font-black text-slate-900 mt-2">0 / 0</p>
+        <p class="text-[11px] text-slate-400 mt-1">From your Study Planner</p>
+      </div>
+    </section>
+
+    <!-- Learn2Lead Modules Grid -->
+    <section class="space-y-4">
+      <div class="animate-fade-up flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-black text-slate-900">Your Learning Modules</h2>
+          <p class="text-xs text-slate-500">Jump straight into Module 1 tools or track upcoming career modules.</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Module 1: Active -->
+        <div class="animate-fade-up delay-100 bg-white/95 backdrop-blur-sm rounded-3xl border-2 border-sky-200 p-6 shadow-xl shadow-sky-100/70 hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between space-y-5">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-sky-100 text-sky-800">Module 1</span>
+              <span class="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span> Active
+              </span>
+            </div>
+            <h3 class="text-xl font-black text-slate-900">Academic Study Management</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Plan subjects &amp; deadlines, generate 15-question Gemini AI or PDF-notes MCQs, review past quiz mistakes, and monitor progress charts.
+            </p>
+          </div>
+          <div class="space-y-2">
+            <a href="/static/academics/planner.html"
+               class="flex items-center justify-between w-full px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-xs font-bold text-slate-800 hover:text-sky-900 transition-all">
+              <span>Personalized Study Planner</span>
+              <span>&rarr;</span>
+            </a>
+            <a href="/static/academics/quizzes.html"
+               class="btn-shimmer flex items-center justify-between w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-xs font-bold text-white shadow-md shadow-sky-600/20 transition-all">
+              <span>AI &amp; Notes Subject Quizzes</span>
+              <span>&rarr;</span>
+            </a>
+            <a href="/static/academics/analytics.html"
+               class="flex items-center justify-between w-full px-4 py-2.5 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-xs font-bold text-slate-800 hover:text-indigo-900 transition-all">
+              <span>Performance Analytics</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Module 2: Employability -->
+        <div class="animate-fade-up delay-200 bg-white/85 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-6 shadow-lg shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between space-y-5">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-indigo-100 text-indigo-800">Module 2</span>
+              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">Active</span>
+            </div>
+            <h3 class="text-xl font-black text-slate-900">Employability &amp; Career Prep</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Choose a career domain, complete skill-roadmap steps, and track your placement readiness score.
+            </p>
+          </div>
+          <a href="/employability" class="btn-shimmer flex items-center justify-between rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-3 text-xs font-bold text-white shadow-md shadow-indigo-600/20">
+            <span>Open Career Roadmap</span><span>&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Module 3: Leadership -->
+        <div class="animate-fade-up delay-300 bg-white/85 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-6 shadow-lg shadow-slate-200/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between space-y-5">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800">Module 3</span>
+              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">Active</span>
+            </div>
+            <h3 class="text-xl font-black text-slate-900">Leadership &amp; Readiness</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Practice leadership scenarios, follow AI recommendations, compare readiness history, and review market trends.
+            </p>
+          </div>
+          <a href="/leadership" class="flex items-center justify-between rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 py-3 text-xs font-bold text-white shadow-md shadow-emerald-600/20">
+            <span>Open Readiness Center</span><span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const TOKEN = localStorage.getItem("l2l_token");
+    if (!TOKEN) window.location.href = "/";
+
+    function logout() {
+      localStorage.removeItem("l2l_token");
+      localStorage.removeItem("l2l_user");
+      window.location.href = "/";
+    }
+
+    // Display student name from localStorage
+    try {
+      const savedUser = JSON.parse(localStorage.getItem("l2l_user") || "{}");
+      const displayName = savedUser.full_name || savedUser.name || (savedUser.email ? savedUser.email.split("@")[0] : "Student");
+      document.getElementById("user-name").textContent = displayName;
+    } catch {}
+
+    // Load live Module 1 KPIs onto the Home Dashboard
+    async function loadDashboardStats() {
+      try {
+        const res = await fetch("/api/academics/analytics", {
+          headers: { "Authorization": "Bearer " + TOKEN }
+        });
+        if (res.status === 401) return logout();
+        if (!res.ok) return;
+        const data = await res.json();
+        document.getElementById("dash-avg").textContent = `${data.overall_avg_score ?? 0}%`;
+        document.getElementById("dash-attempts").textContent = data.total_attempts ?? 0;
+        document.getElementById("dash-hours").textContent = `${data.study_goals?.completed_hours ?? 0} hrs`;
+        document.getElementById("dash-tasks").textContent = `${data.study_goals?.completed_tasks ?? 0} / ${data.study_goals?.total_tasks ?? 0}`;
+      } catch (err) {
+        console.error("Failed to load dashboard stats:", err);
+      }
+    }
+
+    loadDashboardStats();
+  </script>
+</body>
+</html>

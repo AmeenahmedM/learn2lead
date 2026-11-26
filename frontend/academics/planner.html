@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Planner — Learn2Lead</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Smooth staggered entrance & ambient motion */
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatSlow {
+      0%, 100% {
+        transform: translateY(0px) scale(1);
+      }
+      50% {
+        transform: translateY(-14px) scale(1.04);
+      }
+    }
+
+    @keyframes shimmerSweep {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .animate-fade-up {
+      animation: fadeSlideUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .animate-float-slow {
+      animation: floatSlow 9s ease-in-out infinite;
+    }
+
+    .animate-float-delayed {
+      animation: floatSlow 11s ease-in-out 2.5s infinite;
+    }
+
+    .delay-100 { animation-delay: 80ms; }
+    .delay-200 { animation-delay: 160ms; }
+    .delay-300 { animation-delay: 240ms; }
+
+    /* Shimmer effect on primary buttons */
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.28) 50%, transparent 70%);
+      transform: translateX(-100%);
+    }
+    .btn-shimmer:hover::after {
+      animation: shimmerSweep 0.75s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-sky-50/40 to-indigo-50/50 text-slate-800 min-h-screen relative overflow-x-hidden">
+  <!-- Subtle Ambient Background Orbs -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="animate-float-slow absolute -top-24 -left-24 h-80 w-80 rounded-full bg-sky-300/20 blur-3xl"></div>
+    <div class="animate-float-delayed absolute top-1/3 -right-24 h-96 w-96 rounded-full bg-indigo-300/20 blur-3xl"></div>
+    <div class="animate-float-slow absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-emerald-300/15 blur-3xl"></div>
+  </div>
+
+  <!-- Glassmorphic Sticky Navigation Bar -->
+  <nav class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md text-white px-6 py-3 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 shadow-lg">
+    <div class="flex items-center gap-3 group">
+      <img src="/static/assets/logo.jpg"
+           onerror="this.onerror=null; this.src='https://placehold.co/40x40/0284c7/ffffff?text=L2L';"
+           alt="Learn2Lead"
+           class="h-10 w-10 rounded-xl object-cover bg-white ring-2 ring-sky-400/40 transition-transform duration-300 group-hover:scale-105" />
+      <span class="font-extrabold text-xl tracking-tight">Learn<span class="text-sky-400">2</span>Lead</span>
+    </div>
+    <div class="flex flex-wrap items-center gap-1.5 text-sm font-semibold">
+      <a href="/dashboard" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Home</a>
+      <a href="/static/academics/planner.html" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/25">Study Planner</a>
+      <a href="/static/academics/quizzes.html" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Subject Quizzes</a>
+      <a href="/static/academics/analytics.html" class="px-3.5 py-1.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all duration-200">Analytics</a>
+      <button onclick="logout()" class="ml-2 px-3.5 py-1.5 text-xs font-bold bg-rose-600 hover:bg-rose-500 active:scale-95 rounded-xl transition-all duration-200 shadow-sm cursor-pointer">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <!-- Hero Header + Live Progress Summary -->
+    <div class="animate-fade-up flex flex-col md:flex-row md:items-end justify-between gap-5">
+      <div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase bg-sky-100 text-sky-800 border border-sky-200/80 mb-2">
+          <span class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Module 1 &bull; Academic Management
+        </span>
+        <h1 class="text-3xl font-black tracking-tight text-slate-900">
+          Personalized <span class="bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">Study Planner</span>
+        </h1>
+        <p class="text-sm text-slate-600 mt-1">Organize your subjects, set exam deadlines, and track daily focused study blocks.</p>
+      </div>
+
+      <!-- Compact Progress Stats Card -->
+      <div class="bg-white/90 backdrop-blur-sm rounded-2xl border border-slate-200/80 px-5 py-3.5 shadow-lg shadow-slate-200/50 min-w-[260px]">
+        <div class="flex items-center justify-between gap-6">
+          <div>
+            <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Tasks Completed</p>
+            <p id="stat-tasks" class="text-xl font-black text-slate-900 mt-0.5">0 / 0</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Progress</p>
+            <p id="stat-progress" class="text-xl font-black bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mt-0.5">0%</p>
+          </div>
+        </div>
+        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden mt-2.5">
+          <div id="planner-progress-bar" class="h-full w-0 bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-500 rounded-full transition-all duration-700 ease-out"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-Column Workspace -->
+    <div class="grid lg:grid-cols-12 gap-6 items-start">
+      <!-- Left Column: Subjects Management -->
+      <section class="lg:col-span-5 animate-fade-up delay-100 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-6 shadow-xl shadow-slate-200/60 space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div>
+            <h2 class="text-lg font-extrabold text-slate-900">Your Subjects</h2>
+            <p class="text-xs text-slate-500">Add courses &amp; weekly target hours</p>
+          </div>
+          <span class="px-2.5 py-1 rounded-xl bg-sky-50 text-sky-700 text-xs font-bold border border-sky-100">Courses</span>
+        </div>
+
+        <form id="subject-form" class="space-y-3.5">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Subject Name</label>
+            <input id="subj-name" type="text" required placeholder="e.g., Data Structures, DBMS, C#"
+                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Difficulty</label>
+              <select id="subj-diff" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all">
+                <option value="Easy">Easy</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Target Hrs / Wk</label>
+              <input id="subj-hours" type="number" step="0.5" min="1" max="40" value="5"
+                     class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Exam Deadline (Optional)</label>
+            <input id="subj-deadline" type="date"
+                   class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all" />
+          </div>
+
+          <button type="submit"
+                  class="btn-shimmer w-full py-2.5 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 active:scale-[0.98] text-white text-sm font-bold rounded-xl shadow-md shadow-sky-600/25 transition-all cursor-pointer">
+            + Add Subject
+          </button>
+        </form>
+
+        <!-- Saved Subjects List -->
+        <div class="pt-2 space-y-2.5">
+          <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Active Subjects</p>
+          <div id="subjects-list" class="space-y-2.5 max-h-[340px] overflow-y-auto pr-1"></div>
+        </div>
+      </section>
+
+      <!-- Right Column: Study Schedule & Tasks -->
+      <section class="lg:col-span-7 animate-fade-up delay-200 bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-200/80 p-6 shadow-xl shadow-slate-200/60 space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div>
+            <h2 class="text-lg font-extrabold text-slate-900">Study Schedule &amp; Tasks</h2>
+            <p class="text-xs text-slate-500">Scheduled topics also auto-populate in Subject Quizzes</p>
+          </div>
+          <a href="/static/academics/quizzes.html"
+             class="px-3.5 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold transition-all">
+            Quiz My Topics &rarr;
+          </a>
+        </div>
+
+        <!-- Add Study Task Form -->
+        <form id="task-form" class="space-y-3.5 bg-slate-50/80 p-4 rounded-2xl border border-slate-200/70">
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Subject</label>
+              <select id="task-subject" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all">
+                <option value="">General Study</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Topic / Task Title</label>
+              <input id="task-title" type="text" required placeholder="e.g., Normalization, Exception Handling"
+                     class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all" />
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Date</label>
+              <input id="task-date" type="date" required
+                     class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Duration (mins)</label>
+              <input id="task-mins" type="number" min="15" max="360" step="15" value="45"
+                     class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Priority</label>
+              <select id="task-priority" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500/40 focus:border-sky-500 transition-all">
+                <option value="High">High</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit"
+                  class="btn-shimmer px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-[0.98] text-white text-sm font-bold rounded-xl shadow-md shadow-emerald-600/20 transition-all cursor-pointer">
+            + Schedule Study Block
+          </button>
+        </form>
+
+        <!-- Task Filter + Task Cards -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-extrabold text-slate-800">Planned Study Sessions</h3>
+            <select id="task-filter" class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs font-bold bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500/40">
+              <option value="all">All Tasks</option>
+              <option value="pending">Pending Only</option>
+              <option value="completed">Completed Only</option>
+            </select>
+          </div>
+          <div id="tasks-list" class="space-y-2.5"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/academics/academics.js?v=4"></script>
+  <script>initPlannerPage();</script>
+</body>
+</html>
